@@ -93,7 +93,7 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 			Timestamp:        time.Now(),
 			GroupingID:       fingerprint,
 			Fingerprint:      fingerprint,
-			Level:            "error",
+			Level:            entry.Level.String(),
 			Trace:            resultingTrace,
 			NestedTrace:      nestedTrace,
 			Message:          resultingError.Error(),
