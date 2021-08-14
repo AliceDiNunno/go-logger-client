@@ -1,14 +1,14 @@
 package GoLoggerClient
 
 import (
-	gnte "github.com/AliceDiNunno/go-nested-traced-error"
+	e "github.com/AliceDiNunno/go-nested-traced-error"
 	"github.com/google/uuid"
 	"time"
 )
 
 type Traceback struct {
 	Message   string
-	Traceback []gnte.Frame
+	Traceback []e.Frame
 }
 
 type LogData struct {

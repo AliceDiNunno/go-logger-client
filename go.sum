@@ -1,5 +1,5 @@
-github.com/AliceDiNunno/go-nested-traced-error v1.0.8 h1:JSXIQvTILkg9j5bQ1icM3NI2h2OB2J3Ipj4jQLKYdSA=
-github.com/AliceDiNunno/go-nested-traced-error v1.0.8/go.mod h1:LF+5Y1d9FyBi0+5WSs+nAFMxqjHjYCperQQNThtpW2Y=
+github.com/AliceDiNunno/go-nested-traced-error v1.1.0 h1:xMMo9BzW21p3pYTJQfBKcCphAMIGPEQZLLy1ypkxtxQ=
+github.com/AliceDiNunno/go-nested-traced-error v1.1.0/go.mod h1:LF+5Y1d9FyBi0+5WSs+nAFMxqjHjYCperQQNThtpW2Y=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

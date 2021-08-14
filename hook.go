@@ -2,7 +2,7 @@ package GoLoggerClient
 
 import (
 	"fmt"
-	gnte "github.com/AliceDiNunno/go-nested-traced-error"
+	e "github.com/AliceDiNunno/go-nested-traced-error"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -30,7 +30,7 @@ func getHostname() string {
 	return hostname
 }
 
-func getNestedTraces(errorTrace *gnte.ErrorTrace) []*Traceback {
+func getNestedTraces(errorTrace *e.Error) []*Traceback {
 	var nestedTrace []*Traceback
 
 	for {
@@ -40,7 +40,7 @@ func getNestedTraces(errorTrace *gnte.ErrorTrace) []*Traceback {
 		}
 
 		for _, trace := range errorTrace.Stack {
-			newTrace.Traceback = append(newTrace.Traceback, gnte.Frame{
+			newTrace.Traceback = append(newTrace.Traceback, e.Frame{
 				Filename: trace.Filename,
 				Method:   trace.Method,
 				Line:     trace.Line,
@@ -63,7 +63,7 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 
 	fields = entry.Data
 	errorData := fields["err"]
-	errorTrace := *(errorData.(**gnte.ErrorTrace))
+	errorTrace := *(errorData.(**e.Error))
 	fingerprint := errorTrace.Fingerprint()
 	resultingError := errorTrace.Err
 	nestedTrace := getNestedTraces(errorTrace)
