@@ -1,4 +1,4 @@
-package go_logger_client
+package GoLoggerClient
 
 type ClientConfiguration struct {
 	Url         string
