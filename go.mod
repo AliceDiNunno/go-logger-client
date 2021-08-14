@@ -1,4 +1,4 @@
-module go-test
+module github.com/AliceDiNunno/go-logger-client
 
 go 1.16
 
