@@ -21,7 +21,13 @@ func (t InternalTransporter) Send(creationRequest ItemCreationRequest) error {
 		return err
 	}
 
-	return t.Receiver.PushNewLogEntry(id, &creationRequest).Err
+	eerr := t.Receiver.PushNewLogEntry(id, &creationRequest)
+
+	if eerr != nil {
+		return eerr.Err
+	}
+
+	return nil
 }
 
 func NewInternalTransporter(receiver InternalReceiver, config ClientConfiguration) *InternalTransporter {
