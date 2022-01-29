@@ -10,23 +10,23 @@ type InternalReceiver interface {
 }
 
 type InternalTransporter struct {
-	config   ClientConfiguration
-	receiver InternalReceiver
+	Config   ClientConfiguration
+	Receiver InternalReceiver
 }
 
 func (t InternalTransporter) Send(creationRequest ItemCreationRequest) error {
-	id, err := uuid.Parse(t.config.ProjectId)
+	id, err := uuid.Parse(t.Config.ProjectId)
 
 	if err != nil {
 		return err
 	}
 
-	return t.receiver.PushNewLogEntry(id, &creationRequest).Err
+	return t.Receiver.PushNewLogEntry(id, &creationRequest).Err
 }
 
 func NewInternalTransporter(receiver InternalReceiver, config ClientConfiguration) *InternalTransporter {
 	return &InternalTransporter{
-		config:   config,
-		receiver: receiver,
+		Config:   config,
+		Receiver: receiver,
 	}
 }
