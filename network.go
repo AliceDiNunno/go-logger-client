@@ -8,7 +8,11 @@ import (
 	"time"
 )
 
-func (l GoLoggerHook) sendDataToServer(creationRequest ItemCreationRequest) error {
+type NetworkTransporter struct {
+	config ClientConfiguration
+}
+
+func (t NetworkTransporter) Send(creationRequest ItemCreationRequest) error {
 	bodyJson, err := json.Marshal(creationRequest)
 
 	if err != nil {
@@ -17,7 +21,7 @@ func (l GoLoggerHook) sendDataToServer(creationRequest ItemCreationRequest) erro
 
 	bodyBuf := bytes.NewBuffer(bodyJson)
 
-	request, err := http.NewRequest("POST", fmt.Sprintf("http://%s:%d/%s/items", l.config.Url, l.config.Port, l.config.ProjectId), bodyBuf)
+	request, err := http.NewRequest("POST", fmt.Sprintf("http://%s:%d/%s/items", t.config.Url, t.config.Port, t.config.ProjectId), bodyBuf)
 
 	if err != nil {
 		request = nil
@@ -42,4 +46,10 @@ func (l GoLoggerHook) sendDataToServer(creationRequest ItemCreationRequest) erro
 	request = nil
 
 	return err
+}
+
+func NewNetworkTransporter(config ClientConfiguration) *NetworkTransporter {
+	return &NetworkTransporter{
+		config: config,
+	}
 }

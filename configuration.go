@@ -8,3 +8,7 @@ type ClientConfiguration struct {
 	Environment string
 	Version     string
 }
+
+type ClientTransporter interface {
+	Send(data ItemCreationRequest) error
+}

@@ -11,7 +11,8 @@ import (
 )
 
 type GoLoggerHook struct {
-	config ClientConfiguration
+	config      ClientConfiguration
+	transporter ClientTransporter
 }
 
 func (l GoLoggerHook) Levels() []logrus.Level {
@@ -130,14 +131,15 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 
 	data.Data.AdditionalFields = fields
 
-	err := l.sendDataToServer(data)
+	err := l.transporter.Send(data)
 
 	return err
 }
 
-func SetupHook(config ClientConfiguration) {
+func SetupHook(config ClientConfiguration, transporter ClientTransporter) {
 	hook := &GoLoggerHook{
-		config: config,
+		config:      config,
+		transporter: transporter,
 	}
 	logrus.AddHook(hook)
 }
