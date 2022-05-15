@@ -19,6 +19,7 @@ type LogData struct {
 	Trace            *Traceback
 	NestedTrace      []*Traceback
 	Message          string `binding:"required,omitempty"`
+	Module           string `binding:"required,omitempty"`
 	StatusCode       int
 	AdditionalFields map[string]interface{}
 }

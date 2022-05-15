@@ -80,8 +80,7 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 		ProjectKey: l.config.Key,
 		Identification: LogIdentification{
 			Client: LogClientIdentification{
-				UserID:    nil,
-				IPAddress: "",
+				UserID: nil,
 			},
 			Deployment: LogDeploymentIdentification{
 				Platform:    "unix",
@@ -135,6 +134,16 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 
 		if l.config.RemoveFieldsFromDebugOutput {
 			delete(fields, "ip")
+		}
+	}
+
+	if value, hasValue := entry.Data["module"]; hasValue {
+		module := fmt.Sprintf("%v", value)
+
+		data.Data.Module = module
+
+		if l.config.RemoveFieldsFromDebugOutput {
+			delete(fields, "module")
 		}
 	}
 
