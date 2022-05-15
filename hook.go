@@ -17,6 +17,7 @@ type GoLoggerHook struct {
 
 func (l GoLoggerHook) Levels() []logrus.Level {
 	return []logrus.Level{
+		logrus.WarnLevel,
 		logrus.ErrorLevel,
 		logrus.FatalLevel,
 		logrus.PanicLevel,
@@ -103,14 +104,18 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 		},
 	}
 
-	delete(fields, "err")
+	if l.config.RemoveFieldsFromDebugOutput {
+		delete(fields, "err")
+	}
 
 	if value, hasValue := entry.Data["code"]; hasValue {
 		status, err := strconv.Atoi(fmt.Sprintf("%v", value))
 		if err == nil {
 			data.Data.StatusCode = status
 		}
-		delete(fields, "code")
+		if l.config.RemoveFieldsFromDebugOutput {
+			delete(fields, "code")
+		}
 	}
 
 	if value, hasValue := entry.Data["user"]; hasValue {
@@ -118,7 +123,9 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 		if err == nil {
 			data.Identification.Client.UserID = &userId
 		}
-		delete(fields, "user")
+		if l.config.RemoveFieldsFromDebugOutput {
+			delete(fields, "user")
+		}
 	}
 
 	if value, hasValue := entry.Data["ip"]; hasValue {
@@ -126,7 +133,9 @@ func (l GoLoggerHook) Fire(entry *logrus.Entry) error {
 
 		data.Identification.Client.IPAddress = ip
 
-		delete(fields, "ip")
+		if l.config.RemoveFieldsFromDebugOutput {
+			delete(fields, "ip")
+		}
 	}
 
 	data.Data.AdditionalFields = fields

@@ -7,6 +7,8 @@ type ClientConfiguration struct {
 	Key         string
 	Environment string
 	Version     string
+
+	RemoveFieldsFromDebugOutput bool
 }
 
 type ClientTransporter interface {
